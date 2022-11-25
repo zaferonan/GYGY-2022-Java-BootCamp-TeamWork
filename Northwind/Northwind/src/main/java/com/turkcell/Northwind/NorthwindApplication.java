@@ -44,6 +44,6 @@ public class NorthwindApplication {
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ResponseEntity<String> handleBusinessExceptions(BusinessException businessException) {
 		
-		return ResponseEntity.internalServerError().body("Business Exception : /r/n "+businessException.getMessage());
+		return ResponseEntity.internalServerError().body("Business Exception : \r\n"+businessException.getMessage());
 	}
 }

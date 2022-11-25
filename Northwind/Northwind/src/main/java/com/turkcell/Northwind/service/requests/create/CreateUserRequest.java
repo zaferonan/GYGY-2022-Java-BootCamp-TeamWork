@@ -38,13 +38,13 @@ public class CreateUserRequest {
 	private String phoneNumber;
 	
 	public User toUser() {
-		LocalDate date = LocalDate.now();
+		
 		User user =new User();
 		user.setUserName(this.getUserName());
 		user.setPassword(this.getPassword());
 		user.setEmail(this.getEmail());
 		user.setPhoneNumber(this.getPhoneNumber());
-		user.setCreatedDate(date);
+		
 		return user;
 		
 	}
