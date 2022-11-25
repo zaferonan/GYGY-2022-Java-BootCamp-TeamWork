@@ -73,6 +73,7 @@ public class UserManager implements UserService {
 
 	@Override
 	public ResponseEntity<UserDto> getById(int userId) {
+		
 		checkUserId(userId);
 		
 		User user =userDao.getById(userId);		
