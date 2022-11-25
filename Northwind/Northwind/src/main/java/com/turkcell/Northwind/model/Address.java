@@ -2,7 +2,6 @@ package com.turkcell.Northwind.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,8 +30,9 @@ public class Address {
 	@Column(name = "address_id")
 	private int id;
 	
-	@OneToOne(mappedBy = "address",fetch = FetchType.LAZY)	
-	private User user;
+	@OneToOne()	
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
 	
 	@ManyToOne()
 	@JoinColumn(name = "country_id")

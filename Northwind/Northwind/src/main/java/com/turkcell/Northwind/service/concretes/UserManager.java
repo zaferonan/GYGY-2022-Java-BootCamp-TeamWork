@@ -1,5 +1,6 @@
 package com.turkcell.Northwind.service.concretes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.turkcell.Northwind.DAO.UserDao;
+import com.turkcell.Northwind.core.exceptions.BusinessException;
 import com.turkcell.Northwind.model.User;
-import com.turkcell.Northwind.repository.UserRepository;
 import com.turkcell.Northwind.service.abstracts.UserService;
 import com.turkcell.Northwind.service.dtos.User.ListUserDto;
+import com.turkcell.Northwind.service.dtos.User.UserDto;
+import com.turkcell.Northwind.service.requests.create.CreateUserRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,31 +22,37 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserManager implements UserService {
 
-	private final UserRepository userRepository;
+	private final UserDao userDao;
 
 	@Override
 	public ResponseEntity<List<ListUserDto>> getAll() {
-		List<User> users = userRepository.findAll();
-
-		List<ListUserDto> listUserDtos = new ArrayList<ListUserDto>();
-
+		List<User> users=userDao.findAll();
+		
+		List<ListUserDto> listUserDtos=new ArrayList<ListUserDto>();
+		
 		for (User user : users) {
-			ListUserDto listUserDto=new ListUserDto(user.getId(),user.getUserName(),user.getNameSurname());
+			ListUserDto listUserDto=new ListUserDto();
+			listUserDto.setId(user.getId());
+			listUserDto.setUserName(user.getUserName());
+			
 			listUserDtos.add(listUserDto);
 		}
+		
 		return ResponseEntity.status(HttpStatus.OK).body(listUserDtos);
+		
 	}
 
 	@Override
-	public ResponseEntity<String> add(User user) {
-		if(userRepository.existsByUserName(user.getUserName())) {
-			throw new RuntimeException("Username is exists!!");
-		}
-		userRepository.save(user);
+	public ResponseEntity<String> add(CreateUserRequest createUserRequest) {
+		checkUserName(createUserRequest.getUserName());
 		
 		
-		 return ResponseEntity.status(HttpStatus.OK).body("Saved");
+		userDao.save(createUserRequest.toUser());
+		return ResponseEntity.status(HttpStatus.CREATED).body(createUserRequest.getUserName()+" is created.");
+		
 	}
+
+	
 
 	@Override
 	public ResponseEntity<String> update(User user) {
@@ -52,14 +62,42 @@ public class UserManager implements UserService {
 
 	@Override
 	public ResponseEntity<String> delete(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		checkUserId(userId);
+		
+		userDao.deleteById(userId);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("User is deleted!");
 	}
 
+
 	@Override
-	public User getById(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<UserDto> getById(int userId) {
+		checkUserId(userId);
+		
+		User user =userDao.getById(userId);		
+		
+		UserDto userDto=new UserDto();		
+		userDto.setUserName(user.getUserName());
+		userDto.setPassword(user.getPassword());
+		userDto.setEmail(user.getEmail());
+		userDto.setPhoneNumber(user.getPhoneNumber());		
+		userDto.setCreatedDate(user.getCreatedDate());
+		
+		return ResponseEntity.status(HttpStatus.OK).body(userDto);
+	}
+	
+
+	private void checkUserId(int userId) {
+		if(!userDao.existsById(userId)) {
+			throw new BusinessException("There is no User with this id: "+userId);
+		}		
+	}
+	private void checkUserName(String userName) {
+		if(userDao.existsByUserName(userName)) {
+			throw new BusinessException("This username is exists!");
+		}
+		
 	}
 
 }

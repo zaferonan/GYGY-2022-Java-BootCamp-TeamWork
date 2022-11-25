@@ -20,25 +20,13 @@ public class UserDto {
 	private String password;
 	
 
-	private String nameSurname;
-	
-
 	private String email;
-	
-
-	private String gender;	
-	
-	
-	private LocalDate birthDate;
 	
 
 	private LocalDate createdDate;
 	
 
-	private String phoneNumber1;
-	
+	private String phoneNumber;	
 
-	private String phoneNumber2;
 
-	private Address address;
 }

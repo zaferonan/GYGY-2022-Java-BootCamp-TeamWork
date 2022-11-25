@@ -13,7 +13,4 @@ public class ListUserDto {
 
 	private String userName;	
 
-	private String nameSurname;
-	
-
 }
