@@ -30,12 +30,8 @@ public class City {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "city_id")
-	private int id;
-	
-	@ManyToOne()
-	@JoinColumn(name = "country_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Country country;
+	private int id;	
+
 	
 	@Size(min=2,max = 50)
 	@Column(name = "city_name")

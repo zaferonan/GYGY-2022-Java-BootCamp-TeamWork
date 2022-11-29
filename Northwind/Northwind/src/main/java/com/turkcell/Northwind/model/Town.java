@@ -39,7 +39,5 @@ public class Town {
 	@Column(name = "town_name")
 	private String townName;
 	
-	@OneToMany(mappedBy = "town")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<District> districts;
+	
 }

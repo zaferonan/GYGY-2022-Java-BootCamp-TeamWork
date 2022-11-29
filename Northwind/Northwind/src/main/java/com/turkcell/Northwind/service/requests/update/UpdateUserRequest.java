@@ -1,6 +1,4 @@
-package com.turkcell.Northwind.service.requests.create;
-
-import java.time.LocalDate;
+package com.turkcell.Northwind.service.requests.update;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -18,16 +16,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserRequest {
+public class UpdateUserRequest {
 
-
+	@NotNull
+	private int userId;
+	
 	@NotBlank
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 50)
 	private String userName;
 	
-	@ValidPassword	
+	@ValidPassword
 	private String password;
 	
 	@Email
@@ -40,11 +40,11 @@ public class CreateUserRequest {
 	public User toUser() {
 		
 		User user =new User();
+		user.setId(this.getUserId());
 		user.setUserName(this.getUserName());
 		user.setPassword(this.getPassword());
 		user.setEmail(this.getEmail());
 		user.setPhoneNumber(this.getPhoneNumber());
-		user.setCreatedDate(LocalDate.now());
 		
 		return user;
 		

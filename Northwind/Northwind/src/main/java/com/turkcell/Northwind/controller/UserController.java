@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import com.turkcell.Northwind.service.abstracts.UserService;
 import com.turkcell.Northwind.service.dtos.User.ListUserDto;
 import com.turkcell.Northwind.service.dtos.User.UserDto;
 import com.turkcell.Northwind.service.requests.create.CreateUserRequest;
+import com.turkcell.Northwind.service.requests.update.UpdateUserRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,6 +51,16 @@ public class UserController {
 	public ResponseEntity<UserDto> getById(@Valid @RequestParam int userId) {
 
 		return userService.getById(userId);
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<String> update(@Valid @RequestBody UpdateUserRequest updateUserRequest){
+		return userService.update(updateUserRequest);
+	}
+	
+	@GetMapping("/searchByName")
+	public ResponseEntity<List<ListUserDto>> searchByUserName(String userName){
+		return userService.searchByUserName(userName);
 	}
 
 }

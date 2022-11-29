@@ -2,6 +2,9 @@ package com.turkcell.Northwind.service.dtos.User;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Pattern.Flag;
+
 import com.turkcell.Northwind.model.Address;
 
 import lombok.AllArgsConstructor;
@@ -13,11 +16,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
 
-	
-	private String userName;
-	
 
-	private String password;
+	
+	private String userName;	
+
 	
 
 	private String email;

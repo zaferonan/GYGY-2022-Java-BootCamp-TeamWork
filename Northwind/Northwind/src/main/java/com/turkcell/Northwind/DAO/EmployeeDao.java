@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.turkcell.Northwind.model.Employee;
 import com.turkcell.Northwind.model.User;
 
 @Repository
-public interface UserDao extends JpaRepository<User, Integer> {
+public interface EmployeeDao extends JpaRepository<Employee, Integer> {
 
 	boolean existsByUserName(String userName);
-
-	User getById(int userId);
-	User getByUserNameIgnoreCase(String userName);
-	List<User> searchByUserNameContainsIgnoreCase(String userName);
+	Employee getById(int userId);
+	Employee getByUserNameIgnoreCase(String userName);
+	List<Employee> searchByUserNameContainsIgnoreCase(String userName);
 	
 	
 

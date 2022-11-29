@@ -1,4 +1,4 @@
-package com.turkcell.Northwind.service.requests.create;
+package com.turkcell.Northwind.service.requests.update;
 
 import java.time.LocalDate;
 
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class CreateCorporateCustomerRequest extends CreateUserRequest {
+public class UpdateCorporateCustomerRequest extends UpdateUserRequest {
 
 	@NotBlank
 	@Size(min = 1, max = 100)
@@ -30,13 +30,13 @@ public class CreateCorporateCustomerRequest extends CreateUserRequest {
 	
 	public CorporateCustomer toCorporateCustomer() {
 		CorporateCustomer corporateCustomer =new CorporateCustomer();
+		corporateCustomer.setId(this.getUserId());
 		corporateCustomer.setUserName(this.getUserName());
 		corporateCustomer.setPassword(this.getPassword());
 		corporateCustomer.setEmail(this.getEmail());
 		corporateCustomer.setTaxNumber(this.getTaxNumber());
 		corporateCustomer.setCorporateName(this.getCorporateName());
 		corporateCustomer.setPhoneNumber(this.getPhoneNumber());
-		corporateCustomer.setCreatedDate(LocalDate.now());
 		return corporateCustomer;
 		
 	}

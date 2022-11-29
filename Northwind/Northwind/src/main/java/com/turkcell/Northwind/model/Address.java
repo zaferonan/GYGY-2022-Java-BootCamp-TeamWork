@@ -32,12 +32,8 @@ public class Address {
 	
 	@OneToOne()	
 	@JoinColumn(name = "customer_id")
-	private Customer customer;
-	
-	@ManyToOne()
-	@JoinColumn(name = "country_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Country country;
+	private Customer customer;	
+
 	
 	@ManyToOne()
 	@JoinColumn(name = "city_id")
@@ -49,10 +45,6 @@ public class Address {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Town town;
 	
-	@ManyToOne()
-	@JoinColumn(name = "district_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private District district;
 	
 	@Size(max = 10)
 	@Column(name = "postalCode")
