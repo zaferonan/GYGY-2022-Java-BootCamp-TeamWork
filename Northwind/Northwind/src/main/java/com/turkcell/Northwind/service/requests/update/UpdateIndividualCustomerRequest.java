@@ -33,7 +33,7 @@ public class UpdateIndividualCustomerRequest extends UpdateUserRequest {
 	@Size(min = 11, max = 11)	
 	private String identityNumber;
 	
-	public IndividualCustomer toCorporateCustomer() {
+	public IndividualCustomer toIndividualCustomer() {
 		IndividualCustomer individualCustomer =new IndividualCustomer();
 		individualCustomer.setId(this.getUserId());
 		individualCustomer.setUserName(this.getUserName());
