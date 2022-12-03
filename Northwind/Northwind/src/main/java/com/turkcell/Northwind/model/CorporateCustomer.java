@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 public class CorporateCustomer extends Customer {
 
 	
-	@Column(name = "corporate_name")
+	@Column(name = "corporate_name",unique = true)
 	private String corporateName;
 	
 	
-	@Column(name = "tax_number")
+	@Column(name = "tax_number",unique = true)
 	private String TaxNumber;
 }
